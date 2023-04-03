@@ -42,15 +42,25 @@ def error(message): print(f'[{reverse}{errorcolour}!{fullreset}] {str(message)}'
 
 api = shodan.Shodan(args.apikey)
 try:
-    info('Searching...')
-    results = api.search('rtsp')
-    success(str(len(results['matches'])) + ' Results')
-except shodan.exception.APIError as e:
-    error(e)
+    results = api.search("port:554 has_screenshot:true")
+    table = PrettyTable()
+    table.field_names = ["IP", "Hostname", "Organization", "OS", "Product", "Title"]
+
+    for result in results["matches"]:
+        ip = result["ip_str"]
+        hostname = result["hostnames"][0] if result["hostnames"] else "-"
+        organization = result["org"] if result["org"] else "-"
+        os = result["os"] if result["os"] else "-"
+        product = result["product"] if result["product"] else "-"
+        title = result["title"] if result["title"] else "-"
+
+        table.add_row([ip, hostname, organization, os, product, title])
+
+    print(f"[{successcolour}+{fullreset}] {len(results['matches'])} Results\n")
+    print(table)
+except shodan.APIError as e:
+    error(f'Error: {str(e)}')
     sys.exit()
-
-x = PrettyTable()
-x.field_names = ["IP", "Domain", "Country", "City"]
-
+    
 for target in results['matches']:
     targetdomain = successcolour + target["domains"][0] + fullreset if target["domains"] else ""
