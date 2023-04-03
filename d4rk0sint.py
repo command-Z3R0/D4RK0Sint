@@ -31,7 +31,7 @@ clear()
 print(banner)
 
 parser = argparse.ArgumentParser(description='Find Vulnerable RTSP Cameras Around the World')
-parser.add_argument('Your-api-key', metavar='ShodanAPIkey', type=str, help='Your Shodan API Key')
+parser.add_argument('apikey', metavar='ShodanAPIkey', type=str, help='Your Shodan API Key')
 parser.add_argument('-t', metavar='Threads', type=int, help='Threads to use', default=15)
 args = parser.parse_args()
 
