@@ -1,20 +1,16 @@
-#!/bin/env python3
-import sys, os, cv2, threading
-from colorama import init, Fore, Style, Back
+import argparse
+import threading
+import cv2
+import shodan
+import sys
 from time import sleep
 from queue import Queue
 from prettytable import PrettyTable
-import argparse, shodan
-
-init()
-colourtheme1, colourtheme2 = "\u001b[38;5;46m", "\u001b[38;5;50m"
-warningcolour, successcolour, infocolour = "\u001b[38;5;220m", "\u001b[38;5;46m", "\u001b[38;5;39m"
-errorcolour, reverse, fullreset = "\u001b[38;5;160m", "\u001b[7m", "\u001b[0m"
 
 def clear():
     os.system('clear') if not sys.platform == "win32" else print('\n' * 100)
-
-banner = f'''
+    
+banner = '''
 ┌───────────────────────────────────────────────────────────────────────┐
 │██████╗ ██╗  ██╗██████╗ ██╗  ██╗ ██████╗ ███████╗██╗███╗   ██╗████████╗│
 │██╔══██╗██║  ██║██╔══██╗██║ ██╔╝██╔═████╗██╔════╝██║████╗  ██║╚══██╔══╝│
@@ -25,10 +21,13 @@ banner = f'''
 ├────────────────────────────────────┬─────────────────┬────────────────┤
 │             By C.Z3R0              │   Sec-Student   │ Version: 1.0.0 │
 └────────────────────────────────────┴─────────────────┴────────────────┘
+
+Find Vulnerable RTSP Cameras Around the World
 '''
 
 clear()
 print(banner)
+
 
 parser = argparse.ArgumentParser(description='Find Vulnerable RTSP Cameras Around the World')
 parser.add_argument('apikey', metavar='ShodanAPIkey', type=str, help='Your Shodan API Key')
@@ -108,4 +107,3 @@ def rtspprobe(target):
             rtspresult = False
     if rtspresult == False:
         allcams.append({"ip":target["ip_str"], "country":target["location"].get("country_name", ""), "city":target["location"].get("city", "")})
-
