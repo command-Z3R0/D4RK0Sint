@@ -110,7 +110,7 @@ def rtspprobe(target):
 	else:
 		pass
 	allcams.append({"ip":target["ip_str"], "country":target["location"]["country_name"], "city":target["location"]["city"], "pass":str(rtspresult)})
-	clear()
+	
 	print(banner)
 	info('Probing RTSP Cameras... be patient!')
 	if len(badcams) < 1:
