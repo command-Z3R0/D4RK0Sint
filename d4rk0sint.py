@@ -7,8 +7,6 @@ from time import sleep
 from queue import Queue
 from prettytable import PrettyTable
 
-def clear():
-    os.system('clear') if not sys.platform == "win32" else print('\n' * 100)
     
 banner = '''
 ┌───────────────────────────────────────────────────────────────────────┐
@@ -25,7 +23,7 @@ banner = '''
 Find Vulnerable RTSP Cameras Around the World
 '''
 
-clear()
+
 print(banner)
 
 
