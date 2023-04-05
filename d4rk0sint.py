@@ -79,7 +79,6 @@ print(x)
 
 info('Starting RTSP Probing in 5 Seconds...\n')
 sleep(5)
-clear()
 defaultcredentials = ['admin', 'root', 'admin:admin', 'admin:password', 'root:root', 'root:admin', 'admin:root']
 badcams = []
 allcams = []
@@ -140,7 +139,6 @@ x = PrettyTable()
 x.field_names = ["IP", "Authentication", "Country", "City"]
 for badcam in badcams:
 	x.add_row([badcam["ip"], badcam["pass"], badcam["country"], badcam["city"]])
-clear()
 print(banner)
 info('Final Results:')
 print(x)
