@@ -2,7 +2,7 @@
 
 Version: 1.0.0
 **************************************************************************
-A Tool using Shodan and RTSP to find vulnerable cameras around the world.
+ Tool using Shodan to find vulnerable cameras.
 **************************************************************************
 
 
@@ -31,6 +31,5 @@ A Tool using Shodan and RTSP to find vulnerable cameras around the world.
 # 🚧! THIS IS FOR STRICTLY EDUCATIONAL PURPOSES, I AM NOT RESPONSIBLE FOR YOUR USE OF THIS !🚧
 ------------------------------------------------------------------------------------------------------
 
-My Blog: https://command-z3r0.github.io/
 
 
