@@ -2,7 +2,7 @@
 
 Version: 1.0.0
 **************************************************************************
- Tool using Shodan to find vulnerable cameras.
+Tool to find vulnerable cameras, with shodan.
 **************************************************************************
 
 
@@ -13,7 +13,7 @@ Version: 1.0.0
  * chmod +x D4RK0Sint.py
 # 📃 Usage
 
- _./D4RK0Sint.py [ Your SHODAN API KEY ] -t [ THREAD COUNT ]_ 
+ _./D4RK0Sint.py "Your_SHODAN_API_KEY" -t "THREAD_COUNT"_
  
  
 -----------------------------------------------------------------------------------------------------
