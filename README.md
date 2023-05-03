@@ -1,11 +1,11 @@
+# 🚧! THIS IS FOR STRICTLY EDUCATIONAL PURPOSES, I AM NOT RESPONSIBLE FOR YOUR USE OF THIS !🚧
+------------------------------------------------------------------------------------------------------
   # ⚠️📷 D4RK0Sint 📷⚠️
 
 Version: 1.0.0
 **************************************************************************
 Tool to find vulnerable cameras, with shodan.
 **************************************************************************
-# 🚧! THIS IS FOR STRICTLY EDUCATIONAL PURPOSES, I AM NOT RESPONSIBLE FOR YOUR USE OF THIS !🚧
-------------------------------------------------------------------------------------------------------
 
  # 🛠 Installation
 
