@@ -22,12 +22,6 @@ Tool to find vulnerable cameras, with shodan.
 
 💹 Honeypot Detection
 
-❎ 'Timeouts' to speed up the probing process
-
-❎ Option to use Proxies
-
-❎ Option to use Tor (?)
-
 -----------------------------------------------------------------------------------------------------
 # 🚧! THIS IS FOR STRICTLY EDUCATIONAL PURPOSES, I AM NOT RESPONSIBLE FOR YOUR USE OF THIS !🚧
 ------------------------------------------------------------------------------------------------------
